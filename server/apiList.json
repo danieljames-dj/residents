@@ -1,0 +1,33 @@
+{
+	"v1": [
+		{
+			"route": "/login",
+			"path": "./routes/v1/login.js",
+			"method": "POST"
+		}, {
+			"route": "/getGroups",
+			"path": "./routes/v1/getGroups.js",
+			"method": "GET"
+		}, {
+			"route": "/createGroup",
+			"path": "./routes/v1/createGroup.js",
+			"method": "POST"
+		}, {
+			"route": "/addMember",
+			"path": "./routes/v1/addMember.js",
+			"method": "POST"
+		}, {
+			"route": "/addHouse",
+			"path": "./routes/v1/addHouse.js",
+			"method": "POST"
+		}, {
+			"route": "/getHouses",
+			"path": "./routes/v1/getHouses.js",
+			"method": "POST"
+		}, {
+			"route": "/deleteHouse",
+			"path": "./routes/v1/deleteHouse.js",
+			"method": "POST"
+		}
+	]
+}

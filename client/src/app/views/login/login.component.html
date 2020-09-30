@@ -1,0 +1,59 @@
+<mat-card>
+  <table id="cardTable">
+      <tr>
+          <td align="left">
+              <mat-card-title id="appTitle">{{getTitle()}}</mat-card-title>
+          </td>
+          <td align="right">
+              <a id="logout" style="visibility: hidden" mat-raised-button>Logout</a>
+          </td>
+      </tr>
+  </table>
+  <table id="route" align="center">
+      <tr>
+          <td align="center">
+            <div>
+              <mat-tab-group id="tabLayout" class="mat-elevation-z4">
+
+                <mat-tab label="Login">
+              
+                  <br/><br/>
+                  <a mat-raised-button (click)="signInWithGoogle()">Sign In With Google</a>
+                  <h3>OR</h3>
+              
+                  <div style="padding-right: 20px; padding-left: 20px; padding-bottom: 20px;">
+                    <mat-form-field>
+                      <input matInput #emailLogin placeholder="Email ID" type="email">
+                    </mat-form-field>
+                
+                    <mat-form-field>
+                      <input matInput #passwordLogin placeholder="Password" [type]="'password'">
+                    </mat-form-field>
+              
+                    <a mat-raised-button (click)="signIn(emailLogin.value, passwordLogin.value)">Sign In</a>
+              
+                  </div>
+              
+                </mat-tab>
+                <mat-tab label="Sign Up">
+              
+                  <div style="padding: 20px">
+                    <mat-form-field>
+                      <input matInput #emailSignup placeholder="Email ID" type="email">
+                    </mat-form-field>
+                
+                    <mat-form-field>
+                      <input matInput #passwordSignup placeholder="Password" [type]="'password'">
+                    </mat-form-field>
+              
+                    <a mat-raised-button (click)="signUp(emailSignup.value, passwordSignup.value)">Sign Up</a>
+                  </div>
+              
+                </mat-tab>
+              
+              </mat-tab-group>
+            </div>
+          </td>
+      </tr>
+  </table>
+</mat-card>

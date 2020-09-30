@@ -1,0 +1,18 @@
+<mat-card>
+    <mat-form-field>
+        <input matInput placeholder="Head Name" #headName>
+    </mat-form-field><br/>
+    <mat-form-field>
+        <input matInput placeholder="Contact" #contact>
+    </mat-form-field><br/>
+    <mat-form-field>
+        <input matInput placeholder="Detail A" #detailA>
+    </mat-form-field><br/>
+    <mat-form-field>
+        <input matInput placeholder="Detail B" #detailB>
+    </mat-form-field><br/>
+    <mat-form-field>
+        <input matInput placeholder="Sub Group" #subGroup>
+    </mat-form-field><br/>
+    <button mat-raised-button (click)="addHouse(headName.value, contact.value, detailA.value, detailB.value, subGroup.value)">Add House</button>
+</mat-card>

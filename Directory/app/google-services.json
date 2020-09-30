@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "61021792737",
+    "firebase_url": "https://teamcontacts-251c5.firebaseio.com",
+    "project_id": "teamcontacts-251c5",
+    "storage_bucket": "teamcontacts-251c5.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:61021792737:android:44af84cb599e0b983d0aa0",
+        "android_client_info": {
+          "package_name": "com.danieljames.directory"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "61021792737-gejgr8pml7vuu2ghbd8bh9srj3cet44u.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.danieljames.directory",
+            "certificate_hash": "1512ee6a14e564e71f4569f0d37932de39f74586"
+          }
+        },
+        {
+          "client_id": "61021792737-h79v7s35gu2c78n2v6384mv8la92m5n5.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCNjV_g3xi7KP8EaEr3rqCcrZvO_78PmIg"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "61021792737-h79v7s35gu2c78n2v6384mv8la92m5n5.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

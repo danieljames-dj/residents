@@ -1,0 +1,7 @@
+<mat-card>
+    <mat-form-field class="createGroup">
+        <input matInput placeholder="Group Name" #groupName>
+    </mat-form-field>
+	<br/>
+    <button class="newEmployeeSubmit" mat-raised-button (click)="createNewGroup(groupName.value)">Create Group</button>
+</mat-card>

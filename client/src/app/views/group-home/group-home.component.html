@@ -1,0 +1,73 @@
+<br/><button mat-raised-button (click)="addHouse()">Add House</button><br/><br/>
+<mat-card>
+    <mat-form-field>
+        <input matInput placeholder="New Member email ID" #newMember>
+    </mat-form-field>
+	<br/>
+    <button mat-raised-button (click)="addMember(newMember.value)">Add Member</button>
+</mat-card>
+<mat-card *ngIf="houses.length!=0">
+    <mat-card-title>House List</mat-card-title>
+	<table mat-table [dataSource]="houses" class="mat-elevation-z8">
+
+        <ng-container matColumnDef="details">
+            <th mat-header-cell *matHeaderCellDef>Name</th>
+            <td mat-cell *matCellDef="let element"> {{element.details.headName}} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="delete">
+            <th mat-header-cell *matHeaderCellDef>Delete</th>
+            <td mat-cell *matCellDef="let element">
+                <button mat-raised-button (click)="deleteHouse(element)">Delete</button>
+            </td>
+            <!-- <th mat-header-cell>Edit</th>
+            <td mat-cell click='editGroup()'>Edit</td> -->
+        </ng-container>
+
+        <!-- <ng-container matColumnDef="contactNumber">
+            <th mat-header-cell *matHeaderCellDef>Contact Number</th>
+            <td mat-cell *matCellDef="let element"> {{element.contactNumber}} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="houseNumber">
+            <th mat-header-cell *matHeaderCellDef>House Number</th>
+            <td mat-cell *matCellDef="let element"> {{element.houseNumber}} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="memberCount">
+            <th mat-header-cell *matHeaderCellDef>Member count</th>
+            <td mat-cell *matCellDef="let element"> {{element.memberCount}} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="location">
+            <th mat-header-cell *matHeaderCellDef>Location</th>
+            <td mat-cell *matCellDef="let element"> {{element.location}} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="availability">
+            <th mat-header-cell *matHeaderCellDef>Availability</th>
+            <td mat-cell *matCellDef="let element"> {{element.availability}} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="lastPickedDate">
+            <th mat-header-cell *matHeaderCellDef>Last Picked Date</th>
+            <td mat-cell *matCellDef="let element"> {{element.lastPickedDate}} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="assignedEmployee">
+            <th mat-header-cell *matHeaderCellDef>Assigned Employee</th>
+            <td mat-cell *matCellDef="let element"> {{element.assignedEmployee}} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="editEmployee">
+            <th mat-header-cell *matHeaderCellDef>Edit Employee</th>
+            <td mat-cell *matCellDef="let element">
+                <button mat-raised-button (click)="addEmployeeToRequest(element)">Edit Employee</button>
+            </td>
+        </ng-container> -->
+    
+        <!-- <tr mat-header-row *matHeaderRowDef="groupColumns"></tr> -->
+        <!-- <tr mat-header-row *matHeaderRowDef="groupColumns"></tr> -->
+        <tr mat-row *matRowDef="let row; columns: houseColumns;"></tr>
+    </table>
+</mat-card>

@@ -1,0 +1,129 @@
+<!-- <mat-card *ngIf="userType==='3'">
+    <mat-form-field class="newEmployeeInput">
+        <input matInput placeholder="Employee email" #newEmployeeEmail>
+    </mat-form-field>
+    <button class="newEmployeeSubmit" mat-raised-button (click)="addNewEmployee(newEmployeeEmail.value)">Add new employee</button>
+</mat-card> -->
+<!-- <mat-card *ngIf="employees.length!=0">
+    <mat-card-title>Employee Map</mat-card-title>
+    <agm-map 
+        [latitude]='latitude'
+        [longitude]='longitude'
+        [zoom]='2'> -->
+        <!-- (mapClick)='addMarker($event.coords.lat, $event.coords.lng)'> -->
+        <!-- <agm-marker
+            *ngFor='let marker of markers'
+            [latitude]='marker.lat'
+            [longitude]='marker.lng'
+            [opacity]='marker.alpha'
+            [markerDraggable]='true'
+            (markerClick)='selectMarker($event)'
+            >
+        </agm-marker>
+        <agm-rectangle 
+            [north]='max("lat")'
+            [east]='max("lng")'
+            [south]='min("lat")'
+            [west]='min("lng")'>
+        </agm-rectangle> -->
+    <!-- </agm-map>
+    <mat-card-title>Employee List</mat-card-title>
+    <table mat-table [dataSource]="employees" class="mat-elevation-z8">
+
+        <ng-container matColumnDef="email">
+            <th mat-header-cell *matHeaderCellDef>Email ID</th>
+            <td mat-cell *matCellDef="let element"> {{element.email}} </td>
+        </ng-container>
+    
+        <ng-container matColumnDef="slNo">
+            <th mat-header-cell *matHeaderCellDef>Sl. No.</th>
+            <td mat-cell *matCellDef="let element"> {{element.slNo}} </td>
+        </ng-container>
+    
+        <ng-container matColumnDef="ssoId">
+            <th mat-header-cell *matHeaderCellDef>SSO ID</th>
+            <td mat-cell *matCellDef="let element"> {{element.ssoId}} </td>
+        </ng-container>
+    
+        <tr mat-header-row *matHeaderRowDef="requestListColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns: requestListColumns;"></tr>
+    </table>
+</mat-card> -->
+<!-- <mat-card *ngIf="userType==='3'">
+    <mat-form-field class="newEmployeeInput">
+        <input type="number" matInput placeholder="Number of QR Codes" #count>
+    </mat-form-field>
+    <button class="newEmployeeSubmit" mat-raised-button (click)="generateQRcodes(count.value)">Generate QR Codes</button>
+</mat-card> -->
+<br/><button mat-raised-button (click)="createGroup()">Create new group</button><br/><br/>
+<mat-card *ngIf="groups.length!=0">
+    <mat-card-title>My Groups</mat-card-title>
+    <table mat-table [dataSource]="groups" class="mat-elevation-z8">
+
+        <ng-container matColumnDef="name">
+            <th mat-header-cell *matHeaderCellDef>Name</th>
+            <td mat-cell *matCellDef="let element"> {{element.gname}} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="edit">
+            <th mat-header-cell *matHeaderCellDef>Edit</th>
+            <td mat-cell *matCellDef="let element">
+                <button mat-raised-button (click)="editGroup(element)">Edit</button>
+            </td>
+            <!-- <th mat-header-cell>Edit</th>
+            <td mat-cell click='editGroup()'>Edit</td> -->
+        </ng-container>
+
+        <!-- <ng-container matColumnDef="contactNumber">
+            <th mat-header-cell *matHeaderCellDef>Contact Number</th>
+            <td mat-cell *matCellDef="let element"> {{element.contactNumber}} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="houseNumber">
+            <th mat-header-cell *matHeaderCellDef>House Number</th>
+            <td mat-cell *matCellDef="let element"> {{element.houseNumber}} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="memberCount">
+            <th mat-header-cell *matHeaderCellDef>Member count</th>
+            <td mat-cell *matCellDef="let element"> {{element.memberCount}} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="location">
+            <th mat-header-cell *matHeaderCellDef>Location</th>
+            <td mat-cell *matCellDef="let element"> {{element.location}} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="availability">
+            <th mat-header-cell *matHeaderCellDef>Availability</th>
+            <td mat-cell *matCellDef="let element"> {{element.availability}} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="lastPickedDate">
+            <th mat-header-cell *matHeaderCellDef>Last Picked Date</th>
+            <td mat-cell *matCellDef="let element"> {{element.lastPickedDate}} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="assignedEmployee">
+            <th mat-header-cell *matHeaderCellDef>Assigned Employee</th>
+            <td mat-cell *matCellDef="let element"> {{element.assignedEmployee}} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="editEmployee">
+            <th mat-header-cell *matHeaderCellDef>Edit Employee</th>
+            <td mat-cell *matCellDef="let element">
+                <button mat-raised-button (click)="addEmployeeToRequest(element)">Edit Employee</button>
+            </td>
+        </ng-container> -->
+    
+        <!-- <tr mat-header-row *matHeaderRowDef="groupColumns"></tr> -->
+        <!-- <tr mat-header-row *matHeaderRowDef="groupColumns"></tr> -->
+        <tr mat-row *matRowDef="let row; columns: groupColumns;"></tr>
+    </table>
+</mat-card>
+<!-- <mat-card *ngIf="icampId!=''">
+    <mat-form-field class="updateHouse">
+        <input matInput placeholder="Name" #houseName>
+    </mat-form-field>
+    <button class="updateHouse" mat-raised-button (click)="updateHouse(houseName.value)">Update</button>
+</mat-card> -->
