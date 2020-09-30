@@ -5,7 +5,7 @@ module.exports = function(req, res, db, uid) {
 	db.users.findOne({
 		uid: uid
 	}, (error, result) => {
-		if (error) {
+		if (error || !result) {
 			res.send({
 				success: false,
 				message: "Something went wrong in fetching database"
