@@ -28,7 +28,7 @@ export class AddHouseComponent implements OnInit {
 
   ngOnInit(): void {
     this.route.queryParams.subscribe(params => {
-      this.gid = params['id']
+      this.gid = params['gid']
       this.groupDetails = params
       this.inputDetails = params['inputDetails']
       this.personDetails = params['personDetails']
