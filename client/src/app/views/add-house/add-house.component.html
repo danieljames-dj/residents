@@ -1,18 +1,29 @@
 <mat-card>
     <mat-form-field>
-        <input matInput placeholder="Head Name" #headName>
+    <mat-label>Select Sub-Group</mat-label>
+    <mat-select [(ngModel)]="newHouse.subGroup">
+        <mat-option *ngFor="let subGroup of subGroups" [value]="subGroup">
+            {{subGroup}}
+        </mat-option>
+    </mat-select>
+        <input matInput placeholder="Sub Group" #subGroup/>
     </mat-form-field><br/>
-    <mat-form-field>
-        <input matInput placeholder="Contact" #contact>
-    </mat-form-field><br/>
-    <mat-form-field>
-        <input matInput placeholder="Detail A" #detailA>
-    </mat-form-field><br/>
-    <mat-form-field>
-        <input matInput placeholder="Detail B" #detailB>
-    </mat-form-field><br/>
-    <mat-form-field>
-        <input matInput placeholder="Sub Group" #subGroup>
-    </mat-form-field><br/>
-    <button mat-raised-button (click)="addHouse(headName.value, contact.value, detailA.value, detailB.value, subGroup.value)">Add House</button>
+    <div *ngFor="let item of inputDetails; let i = index">
+        <mat-form-field>
+            <textarea matInput placeholder="{{item}}" [(ngModel)]="newHouse[item]"></textarea>
+        </mat-form-field>
+        <br/>
+    </div>
+    <div *ngFor="let person of newHouse.persons; let i = index">
+        <mat-card-title>Person {{i+1}}</mat-card-title>
+        <br/>
+        <div *ngFor="let item of personDetails; let j = index">
+            <mat-form-field>
+                <textarea matInput placeholder="{{item}}" [(ngModel)]="newHouse.persons[i][item]"></textarea>
+            </mat-form-field>
+            <br/>
+        </div>
+    </div>
+    <button mat-raised-button (click)="addPerson()">Add Person</button>
+    <button mat-raised-button (click)="addHouse()">Add House</button>
 </mat-card>

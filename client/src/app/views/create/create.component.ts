@@ -22,7 +22,10 @@ export class CreateComponent implements OnInit {
     let user = this.authService.getCurrentUser();
     user.getIdTokenResult(true).then((token) => {
       this.httpClient.postAuth(this.global.baseApiURL + "/v1/createGroup", {
-        gname: groupName
+        gname: groupName,
+        subGroups: ["Section A", "Section B", "Section C", "Section D", "Section E", "Section F", "Section G", "Section H", "Section I", "Section J", "Section K", "Section L"],
+        inputDetails: ["Name", "Address", "Phone", "Email ID", "Family Name", "Home Parish"],
+        personDetails: ["Name", "Relation", "DOB", "DOM", "Profession"]
       }, token).subscribe((res) => {
         this.router.navigate(["home"])
         // this.userType = res.userType

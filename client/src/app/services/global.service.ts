@@ -7,7 +7,7 @@ export class GlobalService {
 
   public authHomePage = 'home'
   public unauthHomePage = 'signin'
-  public baseApiURL = "/api"
+  public baseApiURL = "/api"//"http://localhost:3000/api"
   public title = "iCamp"
   public selectedParty = ""
   partyList: [{value, viewValue}] = [{

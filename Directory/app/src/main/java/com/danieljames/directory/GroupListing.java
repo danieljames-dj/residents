@@ -64,18 +64,22 @@ public class GroupListing extends AppCompatActivity {
         }
     }
 
+    private void sync() {
+        //
+    }
+
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         super.onCreateOptionsMenu(menu);
-        getMenuInflater().inflate(R.menu.main_menu, menu);
+        getMenuInflater().inflate(R.menu.logged_in_main_menu, menu);
         return true;
     }
 
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         switch (item.getItemId()) {
-            case R.id.createGroup:
-                createGroup();
+            case R.id.sync:
+                sync();
                 return true;
             case R.id.logout:
                 logout();
@@ -136,25 +140,24 @@ public class GroupListing extends AppCompatActivity {
         try {
             String[] groupsList = {};
             ArrayList<String> arrayList = new ArrayList<String>();
-            final JSONArray array = obj.getJSONArray("result");
+            final JSONArray array = obj.getJSONObject("data").getJSONArray("groups");
             for (int i = 0; i < array.length(); i++) {
-                arrayList.add((String) array.get(i));
+                arrayList.add((String)((JSONObject)array.get(i)).get("gname"));
             }
             groupsList = arrayList.toArray(new String[0]);
-            ListView list = (ListView)findViewById(R.id.list);
-            ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(this, R.layout.group_listing_row, R.id.group_listing_row_textview, groupsList);
+            ListView list = findViewById(R.id.list);
+            ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(this, R.layout.group_listing_row, R.id.text_1, groupsList);
             list.setAdapter(arrayAdapter);
-            final String[] finalGroupsList = groupsList;
+            final JSONArray finalGroupsList = array;
             list.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                 @Override
                 public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                    openGroup(finalGroupsList[position]);
-//                    try {
+                    try {
+                        openGroup((JSONObject) finalGroupsList.get(position));
 //                        openVisitHouse(array.getJSONObject(position));
-//                    } catch (JSONException e) {
-//                        e.printStackTrace();
-//                    }
-                    Toast.makeText(getApplicationContext(), "Hello World", Toast.LENGTH_LONG).show();
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
                 }
             });
         } catch (JSONException e) {
@@ -168,8 +171,8 @@ public class GroupListing extends AppCompatActivity {
         finish();
     }
 
-    protected void openGroup(String groupId) {
-        //
+    protected void openGroup(JSONObject group) throws JSONException {
+        Toast.makeText(getApplicationContext(), (String)group.get("gid"), Toast.LENGTH_LONG).show();
     }
 
     protected void createGroup() {

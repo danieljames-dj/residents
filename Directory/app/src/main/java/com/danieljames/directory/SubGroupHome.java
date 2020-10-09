@@ -21,38 +21,24 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
-public class GroupHome extends AppCompatActivity {
+public class SubGroupHome extends AppCompatActivity {
 
-    JSONObject groupDetails;
+    JSONArray houses;
     Map<String, ArrayList<JSONObject>> subGroups = new HashMap<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_group_home);
+        setContentView(R.layout.activity_sub_group_home);
         try {
-            this.groupDetails = new JSONObject(getIntent().getStringExtra("groupDetails"));
-            JSONArray list = (JSONArray) groupDetails.get("list");
-            for (int i = 0; i < list.length(); i++) {
-                JSONObject house = (JSONObject) list.get(i);
-                String subGroup = (String) house.get("subGroup");
-                ArrayList<JSONObject> subGroupHouses = subGroups.get(subGroup);
-                if (subGroupHouses == null) {
-                    ArrayList<JSONObject> houseList = new ArrayList<>();
-                    houseList.add(house);
-                    subGroups.put(subGroup, houseList);
-                } else {
-                    subGroupHouses.add(house);
-                }
+            this.houses = new JSONArray(getIntent().getStringExtra("houses"));
+            String[] heads = new String[houses.length()];
+            for (int i = 0; i < houses.length(); i++) {
+                JSONObject house = (JSONObject) houses.get(i);
+                heads[i] = (String) house.get("headName");
             }
-            ListView listView = (ListView)findViewById(R.id.group_home_list);
-            final String[] streets = new String[subGroups.keySet().size()];
-            int i = 0;
-            for (String street: subGroups.keySet()) {
-                streets[i] = street;
-                i += 1;
-            }
-            ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_expandable_list_item_1, streets) {
+            ListView listView = (ListView)findViewById(R.id.sub_group_home_list);
+            ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_expandable_list_item_1, heads) {
                 @NonNull
                 @Override
                 public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
@@ -69,21 +55,25 @@ public class GroupHome extends AppCompatActivity {
             listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                 @Override
                 public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                    openSubGroup(subGroups.get(streets[position]));
+                    try {
+                        openHouse((JSONObject) houses.get(position));
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+//                    openSubGroup(subGroups.get(streets[position]));
 //                        openVisitHouse(array.getJSONObject(position));
                 }
             });
-            System.out.println(subGroups);
+//            System.out.println(subGroups);
         } catch (JSONException e) {
             e.printStackTrace();
         }
     }
 
-    void openSubGroup(ArrayList<JSONObject> subGroup) {
-        JSONArray houses = new JSONArray(subGroup);
+    void openHouse(JSONObject house) {
         Intent intent;
-        intent = new Intent(this, SubGroupHome.class);
-        intent.putExtra("houses", houses.toString());
+        intent = new Intent(this, HousePage.class);
+        intent.putExtra("house", house.toString());
         startActivity(intent);
     }
 }

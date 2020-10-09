@@ -2,6 +2,9 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.danieljames.directory">
 
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -10,7 +13,9 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
-        <activity android:name=".GroupHome"></activity>
+        <activity android:name=".HousePage"></activity>
+        <activity android:name=".SubGroupHome" />
+        <activity android:name=".GroupHome" />
         <activity android:name=".CreateGroup" />
         <activity android:name=".GroupListing" />
         <activity android:name=".Auth" />

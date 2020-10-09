@@ -3,6 +3,9 @@ module.exports = function(req, res, db, uid) {
 		createGroup(req, res, db, uid, {
 			gid: generateId(),
 			gname: req.body.gname,
+			subGroups: req.body.subGroups.split(","),
+			inputDetails: req.body.inputDetails.split(","),
+			personDetails: req.body.personDetails.split(","),
 			list: [],
 			admins: [uid],
 			members: []

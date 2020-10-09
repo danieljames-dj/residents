@@ -46,7 +46,7 @@ export class HomeComponent implements OnInit {
   }
 
   editGroup(group) {
-    this.router.navigate(["group/" + group.gid])
+    this.router.navigate(["group/" + group.gid], {queryParams: group})
   }
 
 }

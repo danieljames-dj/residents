@@ -2,7 +2,7 @@ package com.danieljames.directory;
 
 public class GlobalConstants {
 
-    String baseUrl = "http://10.0.2.2:3000/api";
+    String baseUrl = "https://directory.drvdatalabs.com/api";
 
     private static GlobalConstants instance = null;
     protected GlobalConstants() {}

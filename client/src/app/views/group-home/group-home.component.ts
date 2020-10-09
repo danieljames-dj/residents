@@ -13,6 +13,7 @@ import { HttpClientService } from 'src/app/services/http-client.service';
 })
 export class GroupHomeComponent implements OnInit {
 
+  groupDetails
   gid
   houses = []
   houseColumns: string[] = ['details', 'delete'];
@@ -26,8 +27,9 @@ export class GroupHomeComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    this.route.params.subscribe(params => {
-      this.gid = params['id']
+    this.route.queryParams.subscribe(params => {
+      this.groupDetails = params
+      this.gid = params['gid']
       this.getHouses()
     });
   }
@@ -51,7 +53,7 @@ export class GroupHomeComponent implements OnInit {
   }
 
   addHouse() {
-    this.router.navigate(["addHouse/" + this.gid])
+    this.router.navigate(["addHouse/" + this.gid], {queryParams: this.groupDetails})
   }
 
   addMember(email) {

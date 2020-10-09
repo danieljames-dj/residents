@@ -11,7 +11,12 @@ import { HttpClientService } from 'src/app/services/http-client.service';
 })
 export class AddHouseComponent implements OnInit {
 
+  inputDetails
+  groupDetails
+  personDetails
+  subGroups
   gid
+  newHouse = {subGroup: '', persons: []}
 
   constructor(
     private authService: AuthService,
@@ -22,22 +27,21 @@ export class AddHouseComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    this.route.params.subscribe(params => {
+    this.route.queryParams.subscribe(params => {
       this.gid = params['id']
+      this.groupDetails = params
+      this.inputDetails = params['inputDetails']
+      this.personDetails = params['personDetails']
+      this.subGroups = params['subGroups']
     });
   }
 
-  addHouse(headName, contact, detailA, detailB, subGroup) {
+  addHouse() {
+    console.log(this.newHouse)
     let user = this.authService.getCurrentUser();
     user.getIdTokenResult(true).then((token) => {
       this.httpClient.postAuth(this.global.baseApiURL + "/v1/addHouse", {
-        houseDetails: JSON.stringify({
-          headName: headName,
-          contact: contact,
-          detailA: detailA,
-          detailB: detailB,
-          subGroup: subGroup
-        }),
+        houseDetails: JSON.stringify(this.newHouse),
         gid: this.gid
       }, token).subscribe((res) => {
         alert("House added successfully")
@@ -46,6 +50,10 @@ export class AddHouseComponent implements OnInit {
         alert("Something went wrong... (Error: " + error + ")")
       })
     })
+  }
+
+  addPerson() {
+    this.newHouse.persons.push({})
   }
 
 }

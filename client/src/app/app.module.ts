@@ -27,6 +27,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { CreateComponent } from './views/create/create.component';
 import { GroupHomeComponent } from './views/group-home/group-home.component';
 import { AddHouseComponent } from './views/add-house/add-house.component';
+import { FormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -52,7 +53,8 @@ import { AddHouseComponent } from './views/add-house/add-house.component';
     MatToolbarModule,
     MatSelectModule,
     HttpClientModule,
-    MatTableModule
+    MatTableModule,
+    FormsModule
   ],
   providers: [AuthService, AngularFirestore, GlobalService, [{provide: LocationStrategy, useClass: HashLocationStrategy}]],
   bootstrap: [AppComponent]

@@ -40,7 +40,10 @@ async function fetchGroupDetails(req, res, db, data, groups) {
 				gid: groupId,
 				permission: permission,
 				gname: result.gname,
-				list: result.list
+				list: result.list,
+				subGroups: result.subGroups,
+				inputDetails: result.inputDetails,
+				personDetails: result.personDetails
 			});
 		}
 	}
