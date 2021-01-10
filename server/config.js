@@ -8,7 +8,6 @@ module.exports = {
     SESSION_SECRET: process.env.SESSION_SECRET || "getfromenv",
     PRODUCTION: process.env.PRODUCTION === "true",
     BETA_BUILD: process.env.BETA_BUILD === "true",
-    MONGO_URI: process.env.MONGO_URI || "mongodb://localhost:27017/residence",
     RAZOR_KEY_SECRET: process.env.RAZOR_KEY_SECRET || "test",
     RAZOR_KEY_ID: process.env.RAZOR_KEY_ID || "test",
     INSTAMOJO_API_KEY: process.env.INSTAMOJO_API_KEY || "test",

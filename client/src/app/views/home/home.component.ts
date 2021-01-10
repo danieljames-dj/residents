@@ -11,7 +11,7 @@ import { HttpClientService } from 'src/app/services/http-client.service';
 })
 export class HomeComponent implements OnInit {
 
-  groupColumns: string[] = ['name', 'edit'];
+  groupColumns: string[] = ['name', 'edit', 'manage'];
   groups = [];
 
   constructor(private authService: AuthService, private router: Router,
@@ -42,10 +42,14 @@ export class HomeComponent implements OnInit {
   }
 
   createGroup() {
-    this.router.navigate(["create"])
+    this.router.navigate(["group-edit"])
   }
 
   editGroup(group) {
+    this.router.navigate(["group-edit"], {queryParams: group})
+  }
+
+  manageGroup(group) {
     this.router.navigate(["group/" + group.gid], {queryParams: group})
   }
 

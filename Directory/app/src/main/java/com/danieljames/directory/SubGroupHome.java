@@ -25,17 +25,19 @@ public class SubGroupHome extends AppCompatActivity {
 
     JSONArray houses;
     Map<String, ArrayList<JSONObject>> subGroups = new HashMap<>();
+    int groupPosition;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        this.groupPosition = getIntent().getIntExtra("groupPosition", -1);
         setContentView(R.layout.activity_sub_group_home);
         try {
             this.houses = new JSONArray(getIntent().getStringExtra("houses"));
             String[] heads = new String[houses.length()];
             for (int i = 0; i < houses.length(); i++) {
                 JSONObject house = (JSONObject) houses.get(i);
-                heads[i] = (String) house.get("headName");
+                heads[i] = (String) house.get("Name");
             }
             ListView listView = (ListView)findViewById(R.id.sub_group_home_list);
             ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_expandable_list_item_1, heads) {
@@ -74,6 +76,7 @@ public class SubGroupHome extends AppCompatActivity {
         Intent intent;
         intent = new Intent(this, HousePage.class);
         intent.putExtra("house", house.toString());
+        intent.putExtra("groupPosition", this.groupPosition);
         startActivity(intent);
     }
 }

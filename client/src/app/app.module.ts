@@ -10,6 +10,8 @@ import { MatListModule } from '@angular/material/list';
 import { MatSelectModule } from '@angular/material/select';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatTableModule } from '@angular/material/table';
+import { MatChipsModule } from '@angular/material/chips';
+import { MatIconModule } from '@angular/material/icon';
 
 import { AppRoutingModule } from './routing/app-routing.module';
 import { AppComponent } from './app.component';
@@ -28,6 +30,8 @@ import { CreateComponent } from './views/create/create.component';
 import { GroupHomeComponent } from './views/group-home/group-home.component';
 import { AddHouseComponent } from './views/add-house/add-house.component';
 import { FormsModule } from '@angular/forms';
+import { InfoComponent } from './views/info/info.component';
+import { GroupEditComponent } from './views/group-edit/group-edit.component';
 
 @NgModule({
   declarations: [
@@ -36,7 +40,9 @@ import { FormsModule } from '@angular/forms';
     LoginComponent,
     CreateComponent,
     GroupHomeComponent,
-    AddHouseComponent
+    AddHouseComponent,
+    InfoComponent,
+    GroupEditComponent
   ],
   imports: [
     BrowserModule,
@@ -52,6 +58,8 @@ import { FormsModule } from '@angular/forms';
     MatListModule,
     MatToolbarModule,
     MatSelectModule,
+    MatChipsModule,
+    MatIconModule,
     HttpClientModule,
     MatTableModule,
     FormsModule

@@ -1,68 +1,28 @@
-const { db } = require("../../mongo-connector");
+const { db } = {users: ""}
 
-module.exports = async function(req, res) {
+module.exports = async function(req, res, firestore) {
 	const gid = req.body.gid
 	const email = req.body.email
-	const uid = await getUidFromEmail(email)
-	if (uid) {
-		await addGroupMemberStatusToUser(uid, gid)
-		await addUserToGroup(uid, gid)
+	let userObj = await firestore.users.where('email', '==', email).get()
+	if (userObj.empty) {
+		firestore.users.add({
+			uid: null,
+			email: email,
+			name: "",
+			groups: [gid + "0"]
+		})
 	} else {
-		await addGroupMemberStatusToDummyUser(email, gid)
-		await addUserToGroup(email, gid)
+		userObj.docs[0].ref.update({
+			groups: firestore.FieldValue.arrayUnion(gid + "0")
+		})
 	}
+	await addUserToGroup(email, gid, firestore)
 	res.send()
 }
 
-const getUidFromEmail = async (email) => {
-	const result = await db.users.findOne({
-		email: email
-	})
-	if (!result) {
-		createDummyUser(email)
-	}
-	return result && result.uid
-}
-
-const addGroupMemberStatusToUser = async (uid, gid) => {
-	await db.users.updateOne({
-		uid: uid
-	}, {
-		$push: {
-			groups: {
-				$each: [gid + "0"]
-			}
-		}
-	})
-}
-
-const addGroupMemberStatusToDummyUser = async (email, gid) => {
-	await db.users.updateOne({
-		email: email
-	}, {
-		$push: {
-			groups: {
-				$each: [gid + "0"]
-			}
-		}
-	})
-}
-
-const addUserToGroup = async (user, gid) => {
-	await db.groups.updateOne({
-		gid: gid
-	}, {
-		$push: {
-			members: {
-				$each: [user]
-			}
-		}
-	});
-}
-
-const createDummyUser = async (email) => {
-	await db.users.insertOne({
-		uid: null,
-		email: email
+const addUserToGroup = async (email, gid, firestore) => {
+	const groupDoc = await firestore.groups.doc(gid).get();
+	await groupDoc.ref.update({
+		members: firestore.FieldValue.arrayUnion(email)
 	})
 }

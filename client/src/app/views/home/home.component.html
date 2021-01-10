@@ -74,6 +74,15 @@
             <td mat-cell click='editGroup()'>Edit</td> -->
         </ng-container>
 
+        <ng-container matColumnDef="manage">
+            <th mat-header-cell *matHeaderCellDef>Manage</th>
+            <td mat-cell *matCellDef="let element">
+                <button mat-raised-button (click)="manageGroup(element)">Manage</button>
+            </td>
+            <!-- <th mat-header-cell>Edit</th>
+            <td mat-cell click='editGroup()'>Edit</td> -->
+        </ng-container>
+
         <!-- <ng-container matColumnDef="contactNumber">
             <th mat-header-cell *matHeaderCellDef>Contact Number</th>
             <td mat-cell *matCellDef="let element"> {{element.contactNumber}} </td>

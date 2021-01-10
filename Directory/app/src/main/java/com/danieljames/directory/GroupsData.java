@@ -34,6 +34,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.UnsupportedEncodingException;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -49,6 +50,8 @@ public class GroupsData {
     private String fileName = "directory.json";
     public JSONArray fileContents;
     public SyncHandler syncHandler;
+    public String[] inputDetails, personDetails;
+    public ArrayList<GroupModel> groups = new ArrayList<>();
 
     GroupsData(Context context) {
         this.isLoggedIn = false;

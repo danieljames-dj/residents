@@ -1,25 +1,24 @@
-module.exports = function(req, res, db, uid) {
+module.exports = async function(req, res, firestore, uid) {
+	const user = await firestore.users.where('uid', '==', uid).get()
 	if (validate(req.body.gname)) {
-		createGroup(req, res, db, uid, {
+		createGroup(req, res, firestore, uid, {
 			gid: generateId(),
 			gname: req.body.gname,
-			subGroups: req.body.subGroups.split(","),
-			inputDetails: req.body.inputDetails.split(","),
-			personDetails: req.body.personDetails.split(","),
-			list: [],
-			admins: [uid],
+			summary: req.body.summary || "",
+			subGroups: req.body.subGroups === "" ? [] : req.body.subGroups.split(","),
+			inputDetails: req.body.inputDetails === "" ? [] : req.body.inputDetails.split(","),
+			personDetails: req.body.personDetails === "" ? [] : req.body.personDetails.split(","),
+			list: {},
+			admins: [user.docs[0].data().email],
 			members: []
 		});
 	} else {
-		res.send({
-			success: false,
-			message: "Validation failed"
-		});
+		res.status(400).send("Validation failed")
 	}
 }
 
 const validate = (name) => {
-	return name.length > 0;
+	return name && name.length > 0;
 }
 
 const generateId = () => {
@@ -27,34 +26,41 @@ const generateId = () => {
 	return uuidv4();
 }
 
-async function createGroup(req, res, db, uid, groupJson) {
-	await db.groups.insertOne(groupJson, (error, result) => {
-		if (error) {
-			res.send({
-				success: false,
-				message: "Something went wrong in insertion to database"
-			});
-		} else {
-			db.users.updateOne({
-				uid: uid
-			}, {
-				$push: {
-					groups: {
-						$each: [groupJson.gid + "1"]
-					}
-				}
-			}, (error, result) => {
-				if (error) {
-					res.send({
-						success: false,
-						message: "Something went wrong in insertion to database"
-					});
-				} else {
-					res.send({
-						success: true
-					});
-				}
-			});
-		}
-	});
+async function createGroup(req, res, firestore, uid, groupJson) {
+	const groupDoc = firestore.groups.doc(groupJson.gid);
+	await groupDoc.set(groupJson);
+	const user = await firestore.users.where('uid', '==', uid).get()
+	await user.docs[0].ref.update({
+		groups: firestore.FieldValue.arrayUnion(groupJson.gid + "1")
+	})
+	res.send();
+	// await db.groups.insertOne(groupJson, (error, result) => {
+	// 	if (error) {
+	// 		res.send({
+	// 			success: false,
+	// 			message: "Something went wrong in insertion to database"
+	// 		});
+	// 	} else {
+	// 		db.users.updateOne({
+	// 			uid: uid
+	// 		}, {
+	// 			$push: {
+	// 				groups: {
+	// 					$each: [groupJson.gid + "1"]
+	// 				}
+	// 			}
+	// 		}, (error, result) => {
+	// 			if (error) {
+	// 				res.send({
+	// 					success: false,
+	// 					message: "Something went wrong in insertion to database"
+	// 				});
+	// 			} else {
+	// 				res.send({
+	// 					success: true
+	// 				});
+	// 			}
+	// 		});
+	// 	}
+	// });
 }

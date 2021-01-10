@@ -16,7 +16,7 @@ export class GroupHomeComponent implements OnInit {
   groupDetails
   gid
   houses = []
-  houseColumns: string[] = ['details', 'delete'];
+  houseColumns: string[] = ['details', 'edit', 'delete'];
 
   constructor(
     private authService: AuthService,
@@ -28,7 +28,8 @@ export class GroupHomeComponent implements OnInit {
 
   ngOnInit(): void {
     this.route.queryParams.subscribe(params => {
-      this.groupDetails = params
+      this.groupDetails = JSON.parse(JSON.stringify(params));
+      this.groupDetails['selectedHouse'] = undefined;
       this.gid = params['gid']
       this.getHouses()
     });
@@ -39,13 +40,18 @@ export class GroupHomeComponent implements OnInit {
     user.getIdTokenResult(true).then((token) => {
       this.httpClient.postAuth(this.global.baseApiURL + "/v1/getHouses", {
         gid: this.gid
-      }, token).subscribe((res: []) => {
-        this.houses = []
-        res.forEach(element => {
+      }, token).subscribe((res: {}) => {
+        for (let key in res) {
           this.houses.push({
-            details: element
+            details: res[key],
+            houseId: key
           })
-        })
+        }
+        // res.forEach(element => {
+        //   this.houses.push({
+        //     details: element
+        //   })
+        // })
       }, error => {
         alert("Something went wrong... (Error: " + error + ")")
       })
@@ -53,6 +59,7 @@ export class GroupHomeComponent implements OnInit {
   }
 
   addHouse() {
+    this.groupDetails.selectedHouse = undefined
     this.router.navigate(["addHouse/" + this.gid], {queryParams: this.groupDetails})
   }
 
@@ -74,20 +81,26 @@ export class GroupHomeComponent implements OnInit {
     }
   }
 
+  editHouse(house) {
+    this.groupDetails.selectedHouse = JSON.stringify(house)
+    this.router.navigate(["addHouse/" + this.gid], {queryParams: this.groupDetails})
+  }
+
   deleteHouse(house) {
-    console.log(house)
-    let user = this.authService.getCurrentUser();
-    user.getIdTokenResult(true).then((token) => {
-      this.httpClient.postAuth(this.global.baseApiURL + "/v1/deleteHouse", {
-        gid: this.gid,
-        hid: house.details.id
-      }, token).subscribe((res) => {
-        alert("Deleted successfully")
-        this.getHouses()
-      }, error => {
-        alert("Something went wrong... (Error: " + error + ")")
-      })
-    })
+    alert("Currently not supported...")
+    // console.log(house)
+    // let user = this.authService.getCurrentUser();
+    // user.getIdTokenResult(true).then((token) => {
+    //   this.httpClient.postAuth(this.global.baseApiURL + "/v1/deleteHouse", {
+    //     gid: this.gid,
+    //     hid: house.details.id
+    //   }, token).subscribe((res) => {
+    //     alert("Deleted successfully")
+    //     this.getHouses()
+    //   }, error => {
+    //     alert("Something went wrong... (Error: " + error + ")")
+    //   })
+    // })
   }
 
 }

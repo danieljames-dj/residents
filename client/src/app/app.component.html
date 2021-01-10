@@ -1,5 +1,5 @@
-<mat-toolbar *ngIf="signedIn===true">
-    <span>Residents</span>
+<mat-toolbar *ngIf="signedIn===true && routerUrl !== '/info'">
+    <span>Directory</span>
     <!-- This fills the remaining space of the current row -->
     <span class="example-fill-remaining-space"></span>
     <span class="SignOut" (click)="signOut()">Sign Out</span>

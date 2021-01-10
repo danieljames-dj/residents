@@ -5,9 +5,10 @@ import { Injectable } from '@angular/core';
 })
 export class GlobalService {
 
+  public isTesting = true
   public authHomePage = 'home'
   public unauthHomePage = 'signin'
-  public baseApiURL = "/api"//"http://localhost:3000/api"
+  public baseApiURL = this.isTesting ? "http://localhost:3000/api" :  "/api"
   public title = "iCamp"
   public selectedParty = ""
   partyList: [{value, viewValue}] = [{

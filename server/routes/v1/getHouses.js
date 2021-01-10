@@ -1,13 +1,7 @@
-const { db } = require("../../mongo-connector");
+const { db } = {users: ""}
 
-module.exports = async function(req, res) {
+module.exports = async function(req, res, firestore) {
 	const gid = req.body.gid
-	res.send(await getHouses(gid))
-}
-
-const getHouses = async (gid) => {
-	const result = await db.groups.findOne({
-		gid: gid
-	})
-	return result ? result.list : []
+	const groupDoc = await firestore.groups.doc(gid).get();
+	res.send(groupDoc.data().list)
 }

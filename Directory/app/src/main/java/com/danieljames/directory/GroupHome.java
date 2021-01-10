@@ -13,10 +13,10 @@ import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
 
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
+import org.json.simple.JSONArray;
+import org.json.simple.JSONObject;
 
+import java.security.acl.Group;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
@@ -24,6 +24,7 @@ import java.util.Map;
 public class GroupHome extends AppCompatActivity {
 
     JSONObject groupDetails;
+    int groupPosition;
     Map<String, ArrayList<JSONObject>> subGroups = new HashMap<>();
 
     @Override
@@ -31,9 +32,10 @@ public class GroupHome extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_group_home);
         try {
-            this.groupDetails = new JSONObject(getIntent().getStringExtra("groupDetails"));
+            this.groupPosition = getIntent().getIntExtra("groupPosition", -1);
+            this.groupDetails = GroupsData.groupsData.groups.get(groupPosition).groupDetails;
             JSONArray list = (JSONArray) groupDetails.get("list");
-            for (int i = 0; i < list.length(); i++) {
+            for (int i = 0; i < list.size(); i++) {
                 JSONObject house = (JSONObject) list.get(i);
                 String subGroup = (String) house.get("subGroup");
                 ArrayList<JSONObject> subGroupHouses = subGroups.get(subGroup);
@@ -74,16 +76,20 @@ public class GroupHome extends AppCompatActivity {
                 }
             });
             System.out.println(subGroups);
-        } catch (JSONException e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }
 
     void openSubGroup(ArrayList<JSONObject> subGroup) {
-        JSONArray houses = new JSONArray(subGroup);
+        JSONArray houses = new JSONArray();
+        for (int i = 0; i < subGroup.size(); i++) {
+            houses.add(subGroup.get(i));
+        }
         Intent intent;
         intent = new Intent(this, SubGroupHome.class);
         intent.putExtra("houses", houses.toString());
+        intent.putExtra("groupPosition", this.groupPosition);
         startActivity(intent);
     }
 }

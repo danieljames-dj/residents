@@ -1,0 +1,51 @@
+<mat-card>
+    <mat-form-field class="createGroup">
+        <input matInput placeholder="Group Name" [(ngModel)]="groupDetails.gname">
+    </mat-form-field>
+	<br/>
+	<mat-form-field>
+		<textarea matInput placeholder="Summary" [(ngModel)]="groupDetails.summary"></textarea>
+	</mat-form-field>
+	<br/>
+	<mat-chip-list #chipList aria-label="Subgroups">
+		<mat-chip *ngFor="let subGroup of groupDetails.subGroups" [selectable]="true"
+				[removable]="true" (removed)="remove(subGroup)">
+		{{subGroup}}
+		<mat-icon matChipRemove>cancel</mat-icon>
+		</mat-chip>
+		<input placeholder="New subgroup"
+			[matChipInputFor]="chipList"
+			[matChipInputSeparatorKeyCodes]="separatorKeysCodes"
+			[matChipInputAddOnBlur]="true"
+			(matChipInputTokenEnd)="add($event)">
+	</mat-chip-list>
+	<br/>
+	<mat-chip-list #chipList aria-label="Input details">
+		<mat-chip *ngFor="let inputDetail of groupDetails.inputDetails" [selectable]="true"
+				[removable]="true" (removed)="remove1(inputDetail)">
+		{{inputDetail}}
+		<mat-icon matChipRemove>cancel</mat-icon>
+		</mat-chip>
+		<input placeholder="New inputDetail"
+			[matChipInputFor]="chipList"
+			[matChipInputSeparatorKeyCodes]="separatorKeysCodes"
+			[matChipInputAddOnBlur]="true"
+			(matChipInputTokenEnd)="add1($event)">
+	</mat-chip-list>
+	<br/>
+	<mat-chip-list #chipList aria-label="Person Details details">
+		<mat-chip *ngFor="let inputDetail of groupDetails.personDetails" [selectable]="true"
+				[removable]="true" (removed)="remove2(inputDetail)">
+		{{inputDetail}}
+		<mat-icon matChipRemove>cancel</mat-icon>
+		</mat-chip>
+		<input placeholder="New personDetail"
+			[matChipInputFor]="chipList"
+			[matChipInputSeparatorKeyCodes]="separatorKeysCodes"
+			[matChipInputAddOnBlur]="true"
+			(matChipInputTokenEnd)="add2($event)">
+	</mat-chip-list>
+	<br/>
+    <button *ngIf="groupDetails.gid == undefined" class="newEmployeeSubmit" mat-raised-button (click)="updateGroup()">Create Group</button>
+	<button *ngIf="groupDetails.gid != undefined" class="newEmployeeSubmit" mat-raised-button (click)="updateGroup()">Update Group</button>
+</mat-card>

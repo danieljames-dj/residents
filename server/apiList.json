@@ -13,6 +13,14 @@
 			"path": "./routes/v1/createGroup.js",
 			"method": "POST"
 		}, {
+			"route": "/updateGroup",
+			"path": "./routes/v1/updateGroup.js",
+			"method": "POST"
+		}, {
+			"route": "/getHouses",
+			"path": "./routes/v1/getHouses.js",
+			"method": "POST"
+		}, {
 			"route": "/addMember",
 			"path": "./routes/v1/addMember.js",
 			"method": "POST"
@@ -21,13 +29,13 @@
 			"path": "./routes/v1/addHouse.js",
 			"method": "POST"
 		}, {
-			"route": "/getHouses",
-			"path": "./routes/v1/getHouses.js",
-			"method": "POST"
-		}, {
 			"route": "/deleteHouse",
 			"path": "./routes/v1/deleteHouse.js",
 			"method": "POST"
+		}, {
+			"route": "/getImage",
+			"path": "./routes/v1/getImage.js",
+			"method": "GET"
 		}
 	]
 }

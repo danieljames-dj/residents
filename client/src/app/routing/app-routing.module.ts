@@ -6,6 +6,8 @@ import { LoginComponent } from '../views/login/login.component';
 import { CreateComponent } from '../views/create/create.component';
 import { GroupHomeComponent } from '../views/group-home/group-home.component';
 import { AddHouseComponent } from '../views/add-house/add-house.component';
+import { InfoComponent } from '../views/info/info.component';
+import { GroupEditComponent } from '../views/group-edit/group-edit.component';
 
 
 const routes: Routes = [
@@ -15,7 +17,7 @@ const routes: Routes = [
         canActivate: [AuthGuard],
         data: {
             shouldBeSignedIn: true,
-            redirect: 'signin'
+            redirect: 'info'
         }
     },
     {
@@ -30,6 +32,15 @@ const routes: Routes = [
     {
         path: 'create',
         component: CreateComponent,
+        canActivate: [AuthGuard],
+        data: {
+            shouldBeSignedIn: true,
+            redirect: 'signin'
+        }
+    },
+    {
+        path: 'group-edit',
+        component: GroupEditComponent,
         canActivate: [AuthGuard],
         data: {
             shouldBeSignedIn: true,
@@ -55,20 +66,29 @@ const routes: Routes = [
         }
     },
     {
-        path: '',
-        redirectTo: 'signin',
-        pathMatch: 'full'
+        path: 'info',
+        component: InfoComponent
     },
+    {
+        path: '',
+        redirectTo: 'info',
+        pathMatch: 'full'
+        // canActivate: [AuthGuard],
+        // data: {
+        //     shouldBeSignedIn: false,
+        //     redirect: 'info'
+        // }
+    }
 //   ,
 //   {
 //       path: '',
 //       redirectTo: 'info',
 //       pathMatch: 'full',
 //   },
-    {
-        path: '**',
-        component: LoginComponent//PageNotFoundComponent
-    }
+    // {
+    //     path: '**',
+    //     component: LoginComponent//PageNotFoundComponent
+    // }
 ];
 
 @NgModule({

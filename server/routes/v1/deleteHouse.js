@@ -1,4 +1,4 @@
-const { db } = require("../../mongo-connector");
+const { db } = {users: ""}
 
 module.exports = async function(req, res) {
 	const gid = req.body.gid

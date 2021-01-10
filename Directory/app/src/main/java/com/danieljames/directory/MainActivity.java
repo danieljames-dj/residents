@@ -109,7 +109,7 @@ public class MainActivity extends AppCompatActivity implements SyncHandler {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 try {
-                    openGroup((JSONObject) GroupsData.groupsData.fileContents.get(position));
+                    openGroup(position);
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
@@ -285,9 +285,31 @@ public class MainActivity extends AppCompatActivity implements SyncHandler {
 //            }
 //        });
         groupList.clear();
+        GroupsData.groupsData.groups.clear();
         JSONArray array = GroupsData.groupsData.fileContents;
         for (int i = 0; i < array.size(); i++) {
-            groupList.add((String)((JSONObject)array.get(i)).get("gname"));
+            JSONObject groupDetails = (JSONObject)array.get(i);
+            GroupModel groupModel = new GroupModel();
+            groupModel.groupDetails = groupDetails;
+            GroupsData.groupsData.groups.add(groupModel);
+            groupModel.groupName = (String)groupDetails.get("gname");
+            groupModel.inputDetails = new ArrayList<>();
+            JSONArray inputDetails = (JSONArray) groupDetails.get("inputDetails");
+            if (inputDetails != null) {
+                for (int j = 0; j < inputDetails.size(); j++) {
+                    String inputDetail = inputDetails.get(j).toString();
+                    groupModel.inputDetails.add(inputDetail);
+                }
+            }
+            JSONArray personDetails = (JSONArray) groupDetails.get("personDetails");
+            groupModel.personDetails = new ArrayList<>();
+            if (personDetails != null) {
+                for (int j = 0; j < personDetails.size(); j++) {
+                    String personDetail = personDetails.get(j).toString();
+                    groupModel.personDetails.add(personDetail);
+                }
+            }
+            groupList.add((String)groupDetails.get("gname"));
         }
         arrayAdapter.notifyDataSetChanged();
 //        final JSONArray finalGroupsList = array;
@@ -304,11 +326,11 @@ public class MainActivity extends AppCompatActivity implements SyncHandler {
 //        });
     }
 
-    protected void openGroup(JSONObject group) throws JSONException {
+    protected void openGroup(int position) throws JSONException {
 //        Toast.makeText(getApplicationContext(), (String)group.get("gid"), Toast.LENGTH_LONG).show();
         Intent intent;
         intent = new Intent(this, GroupHome.class);
-        intent.putExtra("groupDetails", group.toString());
+        intent.putExtra("groupPosition", position);
         startActivity(intent);
     }
 }
