@@ -5,7 +5,7 @@ import { Injectable } from '@angular/core';
 })
 export class GlobalService {
 
-  public isTesting = true
+  public isTesting = false
   public authHomePage = 'home'
   public unauthHomePage = 'signin'
   public baseApiURL = this.isTesting ? "http://localhost:3000/api" :  "/api"
