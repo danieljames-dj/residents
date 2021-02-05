@@ -1,4 +1,4 @@
-package com.danieljames.directory;
+package com.danieljames.directory.old;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -10,7 +10,6 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
 
-import com.android.volley.AuthFailureError;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
@@ -18,6 +17,8 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.HttpHeaderParser;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
+import com.danieljames.directory.model.GlobalConstants;
+import com.danieljames.directory.R;
 import com.firebase.ui.auth.AuthUI;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -35,7 +36,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class Auth extends AppCompatActivity implements View.OnClickListener {
+public class AuthOld extends AppCompatActivity implements View.OnClickListener {
 
     private static final int RC_SIGN_IN = 1;
 
@@ -81,7 +82,7 @@ public class Auth extends AppCompatActivity implements View.OnClickListener {
                         String idToken = task.getResult().getToken();
                         login(idToken, currentUser.getUid(), currentUser.getDisplayName(), currentUser.getEmail());
                     } else {
-                        Toast.makeText(Auth.this, ((FirebaseAuthException)task.getException()).getMessage(), Toast.LENGTH_LONG).show();
+                        Toast.makeText(AuthOld.this, ((FirebaseAuthException)task.getException()).getMessage(), Toast.LENGTH_LONG).show();
                     }
                     }
                 });
@@ -152,7 +153,7 @@ public class Auth extends AppCompatActivity implements View.OnClickListener {
     }
 
     private void openGroupListing() {
-        startActivity(new Intent(this, GroupListing.class));
+        startActivity(new Intent(this, GroupListingOld.class));
         finish();
     }
 }

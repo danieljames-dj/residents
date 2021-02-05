@@ -1,4 +1,4 @@
-package com.danieljames.directory;
+package com.danieljames.directory.old;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -20,6 +20,8 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.HttpHeaderParser;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
+import com.danieljames.directory.model.GlobalConstants;
+import com.danieljames.directory.R;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
@@ -36,7 +38,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
-public class GroupListing extends AppCompatActivity {
+public class GroupListingOld extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -55,7 +57,7 @@ public class GroupListing extends AppCompatActivity {
                     String idToken = task.getResult().getToken();
                     updateGroupsListing(idToken);
                 } else {
-                    Toast.makeText(GroupListing.this, ((FirebaseAuthException)task.getException()).getMessage(), Toast.LENGTH_LONG).show();
+                    Toast.makeText(GroupListingOld.this, ((FirebaseAuthException)task.getException()).getMessage(), Toast.LENGTH_LONG).show();
                 }
                 }
             });
@@ -146,20 +148,21 @@ public class GroupListing extends AppCompatActivity {
             }
             groupsList = arrayList.toArray(new String[0]);
             ListView list = findViewById(R.id.list);
-            ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(this, R.layout.group_listing_row, R.id.text_1, groupsList);
-            list.setAdapter(arrayAdapter);
-            final JSONArray finalGroupsList = array;
-            list.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-                @Override
-                public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                    try {
-                        openGroup((JSONObject) finalGroupsList.get(position));
-//                        openVisitHouse(array.getJSONObject(position));
-                    } catch (JSONException e) {
-                        e.printStackTrace();
-                    }
-                }
-            });
+//            ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(this, R.layout.activity_group_listing_row, R.id.text_1, groupsList);
+////            GroupListingAdapter adapter = new GroupListingAdapter(this);
+//            list.setAdapter(arrayAdapter);
+//            final JSONArray finalGroupsList = array;
+//            list.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+//                @Override
+//                public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+//                    try {
+//                        openGroup((JSONObject) finalGroupsList.get(position));
+////                        openVisitHouse(array.getJSONObject(position));
+//                    } catch (JSONException e) {
+//                        e.printStackTrace();
+//                    }
+//                }
+//            });
         } catch (JSONException e) {
             e.printStackTrace();
         }
@@ -167,7 +170,7 @@ public class GroupListing extends AppCompatActivity {
 
     protected void logout() {
         FirebaseAuth.getInstance().signOut();
-        startActivity(new Intent(this, Auth.class));
+        startActivity(new Intent(this, AuthOld.class));
         finish();
     }
 
@@ -176,6 +179,6 @@ public class GroupListing extends AppCompatActivity {
     }
 
     protected void createGroup() {
-        startActivity(new Intent(this, CreateGroup.class));
+        startActivity(new Intent(this, CreateGroupOld.class));
     }
 }

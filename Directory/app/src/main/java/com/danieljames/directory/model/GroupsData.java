@@ -1,4 +1,4 @@
-package com.danieljames.directory;
+package com.danieljames.directory.model;
 
 import android.content.Context;
 import android.widget.Toast;
@@ -13,26 +13,19 @@ import com.android.volley.toolbox.Volley;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseAuthException;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.GetTokenResult;
 
-//import org.json.JSONArray;
-import org.json.JSONException;
 import org.json.simple.JSONObject;
 import org.json.simple.JSONArray;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
 
-import java.io.BufferedReader;
 import java.io.File;
-import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
 import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -50,10 +43,9 @@ public class GroupsData {
     private String fileName = "directory.json";
     public JSONArray fileContents;
     public SyncHandler syncHandler;
-    public String[] inputDetails, personDetails;
     public ArrayList<GroupModel> groups = new ArrayList<>();
 
-    GroupsData(Context context) {
+    public GroupsData(Context context) {
         this.isLoggedIn = false;
         mAuth = FirebaseAuth.getInstance();
         FirebaseUser currentUser = mAuth.getCurrentUser();
@@ -68,12 +60,8 @@ public class GroupsData {
         return isLoggedIn;
     }
 
-    public void login() {
-        isLoggedIn = true;
-    }
-
-    public void logout() {
-        isLoggedIn = false;
+    public void updateLogin(boolean isLoggedIn) {
+        this.isLoggedIn = isLoggedIn;
     }
 
     public void readFile() {
@@ -88,23 +76,6 @@ public class GroupsData {
         } catch (ParseException e) {
             e.printStackTrace();
         }
-//        File file = new File(rootPath + fileName);
-//        if (file.exists()) {
-//            try {
-//                InputStream in = new FileInputStream(file);
-//                BufferedReader reader;
-//                reader = new BufferedReader(new InputStreamReader(in));
-//                String line = reader.readLine();
-//                while (line != null) {
-//                    readLine(line);
-//                    line = reader.readLine();
-//                }
-//                in.close();
-//                setKeyValuePairs();
-//            } catch (IOException e) {
-//                Toast.makeText(context, e.getMessage(), Toast.LENGTH_SHORT).show();
-//            }
-//        }
     }
 
     private void writeFile() {
@@ -138,7 +109,7 @@ public class GroupsData {
                     String idToken = task.getResult().getToken();
                     updateGroupsListing(idToken);
                 } else {
-                    Toast.makeText(context, ((FirebaseAuthException)task.getException()).getMessage(), Toast.LENGTH_LONG).show();
+                    Toast.makeText(context, (task.getException()).getMessage(), Toast.LENGTH_LONG).show();
                 }
                 }
             });
@@ -155,11 +126,10 @@ public class GroupsData {
                         try {
                             JSONParser jsonParser = new JSONParser();
                             JSONObject obj = (JSONObject) jsonParser.parse(response);
-                            fileContents = (JSONArray) ((JSONObject)obj.get("data")).get("groups");;//.getJSONObject("data").getJSONArray("groups");
+                            fileContents = (JSONArray) ((JSONObject)obj.get("data")).get("groups");
                             syncHandler.synCompleteled();
                             Toast.makeText(context, "Synced", Toast.LENGTH_LONG).show();
                             writeFile();
-//                            updateView(obj);
                         } catch (ParseException e) {
                             e.printStackTrace();
                         }

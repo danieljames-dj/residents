@@ -1,4 +1,4 @@
-package com.danieljames.directory;
+package com.danieljames.directory.old;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -16,6 +16,8 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.HttpHeaderParser;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
+import com.danieljames.directory.model.GlobalConstants;
+import com.danieljames.directory.R;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
@@ -30,7 +32,7 @@ import java.io.UnsupportedEncodingException;
 import java.util.HashMap;
 import java.util.Map;
 
-public class CreateGroup extends AppCompatActivity implements View.OnClickListener {
+public class CreateGroupOld extends AppCompatActivity implements View.OnClickListener {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -52,7 +54,7 @@ public class CreateGroup extends AppCompatActivity implements View.OnClickListen
                                 String idToken = task.getResult().getToken();
                                 createGroup(idToken);
                             } else {
-                                Toast.makeText(CreateGroup.this, ((FirebaseAuthException)task.getException()).getMessage(), Toast.LENGTH_LONG).show();
+                                Toast.makeText(CreateGroupOld.this, ((FirebaseAuthException)task.getException()).getMessage(), Toast.LENGTH_LONG).show();
                             }
                         }
                     });

@@ -13,13 +13,11 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
-        <activity android:name=".HousePage"></activity>
-        <activity android:name=".SubGroupHome" />
-        <activity android:name=".GroupHome" />
-        <activity android:name=".CreateGroup" />
-        <activity android:name=".GroupListing" />
-        <activity android:name=".Auth" />
-        <activity android:name=".MainActivity">
+        <activity android:name=".House.HousePage"></activity>
+        <activity android:name=".SubGroup.SubGroupHome" />
+        <activity android:name=".GroupHome.GroupHome" />
+        <activity android:name=".old.CreateGroupOld" />
+        <activity android:name=".GroupListing.GroupListing">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

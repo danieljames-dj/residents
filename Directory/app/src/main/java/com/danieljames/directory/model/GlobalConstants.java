@@ -1,8 +1,8 @@
-package com.danieljames.directory;
+package com.danieljames.directory.model;
 
 public class GlobalConstants {
 
-    String baseUrl = "https://directory.drvdatalabs.com/api";
+    public String baseUrl = "https://directory.drvdatalabs.com/api";
 
     private static GlobalConstants instance = null;
     protected GlobalConstants() {}
