@@ -28,6 +28,8 @@ import org.json.simple.JSONObject;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashMap;
+import java.util.Iterator;
 
 public class GroupListing extends AppCompatActivity implements SyncHandler {
 
@@ -118,6 +120,7 @@ public class GroupListing extends AppCompatActivity implements SyncHandler {
         for (int i = 0; i < array.size(); i++) {
             JSONObject groupDetails = (JSONObject)array.get(i);
             GroupModel groupModel = new GroupModel();
+            groupModel.list = new HashMap<String, ArrayList<JSONObject>>();
             groupModel.groupDetails = groupDetails;
             GroupsData.groupsData.groups.add(groupModel);
             groupModel.groupName = (String)groupDetails.get("gname");
@@ -144,6 +147,16 @@ public class GroupListing extends AppCompatActivity implements SyncHandler {
                 for (int j = 0; j < subGroups.size(); j++) {
                     String subGroup = subGroups.get(j).toString();
                     groupModel.subGroups.add(subGroup);
+                    groupModel.list.put(subGroup, new ArrayList<JSONObject>());
+                }
+            }
+            JSONObject list = (JSONObject) groupDetails.get("list");
+            for (Iterator iterator = list.keySet().iterator(); iterator.hasNext();) {
+                String key = (String) iterator.next();
+                JSONObject house = (JSONObject) list.get(key);
+                ArrayList<JSONObject> sublist = groupModel.list.get(house.get("subGroup"));
+                if (sublist != null) {
+                    sublist.add(house);
                 }
             }
             groupList.add((String)groupDetails.get("gname"));

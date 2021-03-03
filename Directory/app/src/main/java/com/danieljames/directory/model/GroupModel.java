@@ -4,6 +4,7 @@ import org.json.JSONArray;
 import org.json.simple.JSONObject;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 public class GroupModel {
 
@@ -11,4 +12,5 @@ public class GroupModel {
     public String summary;
     public ArrayList<String> inputDetails, personDetails, subGroups;
     public JSONObject groupDetails;
+    public HashMap<String, ArrayList<JSONObject>> list;
 }
